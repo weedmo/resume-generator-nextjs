@@ -2,13 +2,13 @@
 
 Robotics data engineer — building data pipelines and collection systems for robot learning.
 
-- Web: https://weedmo.github.io/resume-generator-nextjs/
-- PDF: https://weedmo.github.io/resume-generator-nextjs/resume.pdf
+- Web: https://weedmo.github.io/
+- PDF: https://weedmo.github.io/resume.pdf
 - LinkedIn: https://www.linkedin.com/in/joonmo-han-476b77344/
 
 ## Build
 
-Content lives in `payload/`. Pushing to `main` builds the site and PDF and deploys them to GitHub Pages.
+Content lives in `payload/`. The site and PDF are built and deployed by [weedmo/weedmo.github.io](https://github.com/weedmo/weedmo.github.io).
 
 ```bash
 npm install --legacy-peer-deps
