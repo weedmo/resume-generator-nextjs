@@ -23,16 +23,13 @@ async function generatePDF(lang) {
     waitUntil: "networkidle0",
   });
 
+  // 여백·용지는 style/print.css 의 @page 설정을 따름
+  await page.emulateMediaType("print");
   await page.pdf({
     path: output,
     format: "A4",
     printBackground: true,
-    margin: {
-      top: "20px",
-      bottom: "20px",
-      left: "20px",
-      right: "20px",
-    }
+    preferCSSPageSize: true,
   });
 
   await browser.close();

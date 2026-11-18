@@ -36,7 +36,7 @@ function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
           {payload.contents.map((content, index) => (
             <p key={index.toString()} dangerouslySetInnerHTML={{ __html: content }} />
           ))}
-          <p className="text-right">
+          <p className="text-right print-hide">
             <small>Latest Updated</small>{' '}
             <Badge color="secondary">
               {`${latestUpdated.toFormat(

@@ -3,8 +3,8 @@ import { IGlobal } from '../component/common/IGlobal';
 
 const favicon = './favicon.ico';
 const previewImage = './preview.jpg';
-const title = 'Resume Eunki Kim';
-const description = 'This is a Eunki Kim web resume.';
+const title = 'Resume Joonmo Han';
+const description = 'Joonmo Han — Robotics Data Engineer';
 
 export const _global: IGlobal.Payload = {
   favicon,

@@ -10,7 +10,7 @@ export default function ExperienceRow({
   index,
 }: PropsWithChildren<{ item: IExperience.Item; index: number }>) {
   return (
-    <div>
+    <div className="resume-item">
       {index > 0 ? <hr /> : ''}
       <Row>
         <Col sm={12} md={3} className="text-md-right">
@@ -65,7 +65,7 @@ function createWorkingPeriod(startedAtString: string, endedAtString?: string) {
   const { periodTitle, endedAt, isWorking } = (() => {
     if (!endedAtString) {
       return {
-        periodTitle: `${startedAt.toFormat(DATE_FORMAT.YYYY_DOT_LL)} ~`,
+        periodTitle: `${startedAt.toFormat(DATE_FORMAT.YYYY_DOT_LL)} ~ 현재`,
         isWorking: true,
         endedAt: undefined,
       };
@@ -84,7 +84,7 @@ function createWorkingPeriod(startedAtString: string, endedAtString?: string) {
   return (
     <Row>
       <Col md={12} xs={isWorking ? 7 : 9}>
-        <h4 style={Style.gray}>{periodTitle}</h4>
+        <h4 className="period" style={Style.gray}>{periodTitle}</h4>
       </Col>
       <Col md={12} xs={isWorking ? 5 : 3} className="text-md-right text-center">
         {isWorking ? (

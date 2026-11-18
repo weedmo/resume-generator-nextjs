@@ -23,7 +23,7 @@ export default function SkillRow({
   }, []);
 
   return (
-    <div>
+    <div className="resume-item">
       {index > 0 ? <hr /> : ''}
       <Row>
         <Col sm={12} md={3} className="text-md-right">

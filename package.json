@@ -1,6 +1,6 @@
 {
   "name": "resume-nextjs",
-  "lastestUpdatedAt": "2026-02-19",
+  "lastestUpdatedAt": "2026-10-31",
   "version": "1.2.1",
   "description": "Static HTML based RESUME made with next.js",
   "main": "index.js",
@@ -36,7 +36,7 @@
     "lint": "eslint \"component/**/*\" \"pages/**/*\" \"payload/**/*\" \"*.ts\" --fix",
     "typedoc": "typedoc --excludeExternals"
   },
-  "homepage": "https://eunki-7.github.io",
+  "homepage": "https://weedmo.github.io",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uyu423/resume-nextjs.git"

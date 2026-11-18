@@ -1,5 +1,7 @@
 import 'jquery/dist/jquery.slim';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../style/period.css';
+import '../style/print.css';
 
 import { NextComponentType } from 'next';
 

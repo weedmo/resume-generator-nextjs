@@ -24,10 +24,14 @@ function Component({ payload }: PropsWithChildren<{ payload: Payload }>) {
   return (
     <div className="mt-5">
       <Row>
-        <Col md={3} sm={12}>
-          <ProfileImage src={image} />
-        </Col>
-        <Col md={9} sm={12}>
+        {image ? (
+          <Col md={3} sm={12}>
+            <ProfileImage src={image} />
+          </Col>
+        ) : (
+          ''
+        )}
+        <Col md={image ? 9 : 12} sm={12}>
           {createNameArea(name)}
           {createProfileContactMap(contact)}
           {createNoticeArea(notice)}
@@ -62,6 +66,9 @@ function createProfileContactMap(contacts: Payload['contact']) {
 }
 
 function createNoticeArea(notice: Payload['notice']) {
+  if (!notice || !notice.title) {
+    return '';
+  }
   return (
     <EmptyRowCol>
       <Alert color="secondary" role="alert" className="mt-3">

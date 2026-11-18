@@ -13,13 +13,15 @@ export function CommonRows({
   const isNeedDescriptionPadding = !!(right.title || right.subTitle);
 
   return (
-    <div>
+    <div className="resume-item">
       {index > 0 ? <hr /> : ''}
       <Row>
         <Col sm={12} md={3} className="text-md-right">
           <Row>
             <Col md={12}>
-              <h4 style={Style.gray}>{left.title}</h4>
+              <h4 className={/^\d{4}\./.test(left.title) ? 'period' : undefined} style={Style.gray}>
+                {left.title}
+              </h4>
             </Col>
             {left.subTitle ? <Col md={12}>{left.subTitle}</Col> : ''}
           </Row>

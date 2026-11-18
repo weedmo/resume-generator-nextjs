@@ -1,0 +1,5 @@
+/* 왼쪽 기간 표시(2025. 07 ~ 2025. 10)가 두 줄로 꺾이지 않도록 */
+.period {
+  white-space: nowrap;
+  font-size: 1.15rem;
+}
