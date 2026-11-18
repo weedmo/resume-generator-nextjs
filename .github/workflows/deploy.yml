@@ -1,61 +1,67 @@
-name: Deploy Resume via Docker
+name: Deploy Resume to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths-ignore:
       - 'README.md'
       - 'README*.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
     steps:
       - name: Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Clean docs
-        run: sudo rm -rf docs
+      - name: Setup Node (site build)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+          cache: npm
 
-      - name: Build with Docker
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build Korean resume
         run: |
-          docker build --no-cache -t resume .
-          docker create --name resume_container resume
-          docker cp resume_container:/app/docs ./docs
-          docker rm resume_container
+          cp payload/index_ko.ts payload/index.ts
+          npx next build
+          npx next export -o docs/ko
+          touch docs/ko/.nojekyll
+
+      - name: Setup Node (PDF)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
       - name: Generate PDF
         run: |
-          npm install puppeteer --no-save
+          npm install puppeteer --no-save --legacy-peer-deps
           node scripts/generate-pdf.js ko
-          node scripts/generate-pdf.js en
 
-      - name: Check docs content
-        run: ls -R docs
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/ko
 
-      - name: Deploy Korean Resume
-        run: |
-          cd docs/ko
-          git init
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git branch -M main
-          git add .
-          git commit -m "deploy: ko" || echo "No changes"
-          git remote add origin https://x-access-token:${{ secrets.KO_REPO_TOKEN }}@github.com/eunki-7/resume_ko.git
-          git push -u origin main --force
-
-      - name: Deploy English Resume
-        run: |
-          cd docs/en
-          git init
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git branch -M main
-          git add .
-          git commit -m "deploy: en" || echo "No changes"
-          git remote add origin https://x-access-token:${{ secrets.EN_REPO_TOKEN }}@github.com/eunki-7/resume_en.git
-          git push -u origin main --force
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
